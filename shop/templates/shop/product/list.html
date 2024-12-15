@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ category.category_name }}{% endblock %}
+{% block content %}
+<h2>{{ category.category_name }}</h2>
+<div>
+    {% for p in products %}
+        <div>
+            <a href="{{ p.get_absolute_url }}">
+                {% with main_image=p.images.all|first %}
+                    {% if main_image %}
+                        <img src="{{ main_image.image.url }}" alt="{{ p.product_name }}">
+                    {% endif %}
+                {% endwith %}
+                <h3>{{ p.product_name }}</h3>
+            </a>
+            {% comment %} <p>{{ p.price }} руб.</p> {% endcomment %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
