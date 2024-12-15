@@ -2,19 +2,31 @@
 {% block title %}{{ category.category_name }}{% endblock %}
 {% block content %}
 <h2>{{ category.category_name }}</h2>
-<div>
+
+<div class="row mb-2">
     {% for p in products %}
-        <div>
-            <a href="{{ p.get_absolute_url }}">
-                {% with main_image=p.images.all|first %}
-                    {% if main_image %}
-                        <img src="{{ main_image.image.url }}" alt="{{ p.product_name }}">
-                    {% endif %}
-                {% endwith %}
-                <h3>{{ p.product_name }}</h3>
-            </a>
-            {% comment %} <p>{{ p.price }} руб.</p> {% endcomment %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary-emphasis">{{ category.category_name }}</strong>
+          <h3 class="mb-0">{{ p.product_name }}</h3>
+          <div class="mb-1 text-body-secondary">{{ p.created }}</div>
+          {% comment %} <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p> {% endcomment %}
+          <a href="{{ p.get_absolute_url }}" class="icon-link gap-1 icon-link-hover stretched-link">
+            
+            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+          </a>
         </div>
-    {% endfor %}
+        <div class="col-auto d-none d-lg-block">
+            {% with main_image=p.images.all|first %}
+            {% if main_image %}
+                <img src="{{ main_image.image.url }}" alt="{{ p.product_name }}" class="bd-placeholder-img" width="200" height="250" alt="Thumbnail">
+            {% endif %}
+        {% endwith %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
 </div>
+
 {% endblock %}
